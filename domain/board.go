@@ -1,5 +1,7 @@
 package domain
 
+import "math/rand"
+
 type cell struct {
 	coordX int
 	coordY int
@@ -12,6 +14,6 @@ type Board struct {
 
 func (board *Board) RandomizeBoard() {
 	for i := range board.cells {
-		board.cells[i].number = 1
+		board.cells[i].number = rand.Intn(9) + 1
 	}
 }
