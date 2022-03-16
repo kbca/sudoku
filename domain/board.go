@@ -5,25 +5,30 @@ import (
 )
 
 type cell struct {
-	coordX int
-	coordY int
+	line   int
+	column int
 	number int
 }
 
 type Board struct {
-	cells [81]cell
+	cells   [81]cell
+	lines   [9][9]*cell
+	columns [9][9]*cell
 }
 
 func (board *Board) defineCoords() {
-	currentX, currentY := 1, 1
+	currentLine, currentColumn := 1, 1
 	for i := range board.cells {
-		board.cells[i].coordX = currentX
-		board.cells[i].coordY = currentY
+		board.cells[i].line = currentLine
+		board.cells[i].column = currentColumn
 
-		currentX++
-		if currentX > 9 {
-			currentX = 1
-			currentY++
+		board.lines[currentLine-1][currentColumn-1] = &board.cells[i]
+		board.columns[currentColumn-1][currentLine-1] = &board.cells[i]
+
+		currentLine++
+		if currentLine > 9 {
+			currentLine = 1
+			currentColumn++
 		}
 	}
 }
